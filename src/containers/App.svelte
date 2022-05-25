@@ -6,13 +6,20 @@
   import TimeLine from "../components/TimeLine.svelte";
 
   let data = {};
-  const API = "https://us-central1-pugstagram-co.cloudfunctions.net/data";
+  const API =
+    "https://api-pugstagram.herokuapp.com/?nickname=jmam&name=Jhon%20Manuel";
 
   onMount(async () => {
     const response = await fetch(API);
     data = await response.json();
   });
 </script>
+
+<Header />
+<Main>
+  <TimeLine posts={data.posts} />
+  <Sidebar {...data.user} />
+</Main>
 
 <style>
   @import url("https://fonts.googleapis.com/css?family=Lato:300,400&display=swap");
@@ -30,9 +37,3 @@
     padding: 0;
   }
 </style>
-
-<Header />
-<Main>
-  <TimeLine posts={data.posts} />
-  <Sidebar {...data.user} />
-</Main>
